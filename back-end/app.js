@@ -11,6 +11,7 @@ app.use(cors()) // allow cross-origin resource sharing
 // use express's builtin body-parser middleware to parse any data included in a request
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use(express.static('public')) // for exercise: used for serving about images from public folder
 
 // connect to database
 mongoose
@@ -21,6 +22,7 @@ mongoose
 // load the dataabase models we want to deal with
 const { Message } = require('./models/Message')
 const { User } = require('./models/User')
+const { About } = require('./models/About')
 
 // a route to handle fetching all messages
 app.get('/messages', async (req, res) => {
@@ -57,6 +59,25 @@ app.get('/messages/:messageId', async (req, res) => {
     })
   }
 })
+
+// for exercise: route to fetch all about entries
+app.get('/aboutus', async (req,res) => {
+  // load all 'abouts' from database
+  try {
+    const aboutUs = await About.find({})
+    res.json({
+      aboutUs: aboutUs,
+      status: 'all good',
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(400).json({
+      error: err,
+      status: 'failed to retrieve about us entries from the database',
+    })
+  }
+})
+
 // a route to handle logging out users
 app.post('/messages/save', async (req, res) => {
   // try to save the message to the database
