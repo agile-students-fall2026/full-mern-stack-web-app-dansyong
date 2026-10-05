@@ -1,0 +1,31 @@
+.about-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.about-article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px black;
+    border-radius: 20px;
+    padding: 4rem;
+    gap: 2rem;
+    width: fit-content;
+}
+
+.about-text {
+    width: 25rem;
+}
+
+.about-text p {
+    padding-top: 0.4rem;
+}
+
+img {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+}
